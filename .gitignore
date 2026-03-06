@@ -1,0 +1,33 @@
+# Root-level gitignore for the Ecommece_web project
+
+# Environment files (NEVER commit these)
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python venv (if run from root)
+venv/
+env/
+.venv/
+
+# Node modules (if run from root)
+node_modules/
+
+# Logs
+*.log
+
+# Temp / scratch scripts
+/tmp/
