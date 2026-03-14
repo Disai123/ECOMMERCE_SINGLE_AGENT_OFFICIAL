@@ -22,6 +22,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 from langchain_core.messages import (
     SystemMessage, HumanMessage, AIMessage, ToolMessage, BaseMessage
 )
@@ -35,7 +36,11 @@ from .. import models
 # ---------------------------------------------------------------------------
 # LLM
 # ---------------------------------------------------------------------------
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash-lite")
+primary_llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash") # Keeping the model consistent or updating to a stable one if needed
+fallback_llm = ChatGroq(model="llama-3.3-70b-versatile")
+
+# Configure LLM with Fallback
+llm = primary_llm.with_fallbacks([fallback_llm])
 
 
 # ---------------------------------------------------------------------------
@@ -222,6 +227,20 @@ async def run_agent_turn(
             "   call add_to_cart using the product_id from the LAST search result shown.\n"
             "6. Use get_cart to show cart contents. Use checkout to place an order.\n"
             "7. Keep answers concise and friendly."
+            "8. If the user asks for the price of a product, use the search_products tool to get the price."
+            "9. If the user asks for the quantity of a product, use the search_products tool to get the quantity."
+            "10. If the user asks for the description of a product, use the search_products tool to get the description."
+            "11. If the user asks for the brand of a product, use the search_products tool to get the brand."
+            "12. If the user asks for the category of a product, use the search_products tool to get the category."
+            "13. If the user asks for the subcategory of a product, use the search_products tool to get the subcategory."
+            "14. If the user asks for the image of a product, use the search_products tool to get the image."
+            "15. If the user asks for the rating of a product, use the search_products tool to get the rating."
+            "16. If the user asks for the review of a product, use the search_products tool to get the review."
+            "17. If the user asks for the stock of a product, use the search_products tool to get the stock."
+            "18. If the user asks for the discount of a product, use the search_products tool to get the discount."
+            "19. If the user asks for the tax of a product, use the search_products tool to get the tax."
+            "20. If the user asks for the total of a product, use the search_products tool to get the total."
+            "21. If the user asks for the total of a product, use the search_products tool to get the total."
         ))
     ]
 
